@@ -1,0 +1,224 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Get messages from a specific Egg or topic over a period of time, optionally filtered by location. https://airqualityegg.wickeddevice.com/api. Authentication using JWT tokens, include header Authorization Bearer your-jwt-token-here",
+    "version" : "1.0.0",
+    "title" : "Air Quality Egg Messages API",
+    "contact" : {
+      "email" : "support@wickeddevice.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/v1/login" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "logs in to get JWT token",
+        "description" : "logs in as a user and gets back a JWT on success",
+        "operationId" : "login",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "user",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/user"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An object with a jwt field containing the JSON Web Token for subsequent use in Authorization HTTP header.  A failure to login will generally be accompanied by an error field explaining why.",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "422" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/v1/messages/device/:serial_number" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "gets messages by serial number",
+        "description" : "By passing in the appropriate options, you can get back messages published by a specific Egg over a period of time (required start-date + end-date, or start-date + dur, or end-date + dur).\n",
+        "operationId" : "messagesBySerialNumber",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "should be a string of the form \"Bearer your-jwt-here\"",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "start-date",
+          "in" : "query",
+          "description" : "ISO-8601 date string marking the beginning of the requested time period.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "end-date",
+          "in" : "query",
+          "description" : "ISO-8601 date string marking the end of the requested time period",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "dur",
+          "in" : "query",
+          "description" : "ISO-8601 duration string to be used in conjunction with _either_ start-date or end-date, not both",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "lat",
+          "in" : "query",
+          "description" : "Decimal value of latitude for proximity filter (in degrees)",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "lon",
+          "in" : "query",
+          "description" : "Decimal value of longitude for proximity filter (in degrees)",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "radius",
+          "in" : "query",
+          "description" : "Decimal value of radius for proximity filter (in meters)",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "messages from target Egg matching temporal and spatial filter criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Message"
+              }
+            }
+          },
+          "422" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/v1/messages/topic/:topic" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "gets messages MQTT topic",
+        "description" : "By passing in the appropriate options, you can get back messages published to a specific topic over a period of time (required start-date + end-date, or start-date + dur, or end-date + dur). Replace the trailing serial-number in a topic to get back messages from _any_ Egg on that topic prefix (e.g. /orgs/wd/aqe/temperature/#) matching the temporal and spatial filters.\n",
+        "operationId" : "messagesByTopic",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "should be a string of the form \"Bearer your-jwt-here\"",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "start-date",
+          "in" : "query",
+          "description" : "ISO-8601 date string marking the beginning of the requested time period.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "end-date",
+          "in" : "query",
+          "description" : "ISO-8601 date string marking the end of the requested time period",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "dur",
+          "in" : "query",
+          "description" : "ISO-8601 duration string to be used in conjunction with _either_ start-date or end-date, not both",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "lat",
+          "in" : "query",
+          "description" : "Decimal value of latitude for proximity filter (in degrees)",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "lon",
+          "in" : "query",
+          "description" : "Decimal value of longitude for proximity filter (in degrees)",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "radius",
+          "in" : "query",
+          "description" : "Decimal value of radius for proximity filter (in meters)",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "messages from target topic matching temporal and spatial filter criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Message"
+              }
+            }
+          },
+          "422" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Message" : {
+      "type" : "object",
+      "required" : [ "date", "payload", "topic" ],
+      "properties" : {
+        "topic" : {
+          "type" : "string",
+          "example" : "/orgs/wd/aqe/temperature/eggxyz"
+        },
+        "date" : {
+          "type" : "string",
+          "example" : "2016-08-29T09:12:33.001Z"
+        },
+        "payload" : {
+          "type" : "object",
+          "example" : {
+            "serial-number" : "eggxyz",
+            "compensated-value" : 23.25,
+            "converted-units" : "degC"
+          },
+          "properties" : { }
+        }
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "required" : [ "jwt" ],
+      "properties" : {
+        "jwt" : {
+          "type" : "string",
+          "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+        }
+      }
+    },
+    "user" : {
+      "type" : "object",
+      "required" : [ "name", "password" ],
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
