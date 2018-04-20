@@ -41,6 +41,36 @@
         }
       }
     },
+    "/v1/most-recent/messages/device/:serial_number" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "Gets an object representing the most recent message sent to each topic by a specific Egg",
+        "description" : "The specific keys of the returned object will depend on the type of Egg and what it reports. These keys are taken directly from MQTT topic strings after 'aqe/' and '/serial-number'. The objects attached to each of these keys are the most recent payload reported by the Egg on that topic, augmented with a 'date' field which is a ISO-8601 formatted timestmap associated with that particular message.\n",
+        "operationId" : "mostRecentMessagesBySerialNumber",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "should be a string of the form \"Bearer your-jwt-here\"",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Most recent record messages on each topic from target Egg",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/RecentMessages"
+              }
+            }
+          },
+          "422" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
     "/v1/messages/device/:serial_number" : {
       "get" : {
         "tags" : [ "developers" ],
@@ -196,6 +226,30 @@
           },
           "properties" : { }
         }
+      }
+    },
+    "RecentMessages": {
+      "type" : "object",
+      "required" : [],
+      "properties" : {
+        "some-sensor" : {
+          "type" : "object",
+          "example" : {
+            "serial-number" : "eggxyz",
+            "compensated-value" : 23.25,
+            "converted-units" : "degC"
+          },
+          "properties" : { }
+        },
+        "some-other-sensor" : {
+          "type" : "object",
+          "example" : {
+            "serial-number" : "eggxyz",
+            "a-special-value" : 213.25,
+            "converted-units" : "whatever-units"
+          },
+          "properties" : { }
+        }        
       }
     },
     "User" : {
