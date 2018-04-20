@@ -41,7 +41,7 @@
         }
       }
     },
-    "/api/v1/most-recent/messages/device/:serial_number" : {
+    "/api/v1/most-recent/messages/device/{serial_number}" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "gets an Egg's most recently reported data",
