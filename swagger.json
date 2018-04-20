@@ -49,6 +49,13 @@
         "operationId" : "mostRecentMessagesBySerialNumber",
         "produces" : [ "application/json" ],
         "parameters" : [ {
+          "name" : "serial_number",
+          "in": "path",
+          "description" : "Egg serial number, typically starts with egg0080",
+          "required" : true,
+          "type" : "string"
+        },
+        {
           "name" : "Authorization",
           "in" : "header",
           "description" : "should be a string of the form \"Bearer your-jwt-here\"",
