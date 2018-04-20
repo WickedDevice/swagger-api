@@ -14,7 +14,7 @@
   },
   "schemes" : [ "https" ],
   "paths" : {
-    "/v1/login" : {
+    "/api/v1/login" : {
       "post" : {
         "tags" : [ "developers" ],
         "summary" : "logs in to get JWT token",
@@ -41,7 +41,7 @@
         }
       }
     },
-    "/v1/most-recent/messages/device/:serial_number" : {
+    "/api/v1/most-recent/messages/device/:serial_number" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "Gets an object representing the most recent message sent to each topic by a specific Egg",
@@ -71,7 +71,7 @@
         }
       }
     },
-    "/v1/messages/device/:serial_number" : {
+    "/api/v1/messages/device/{serial_number}" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "gets messages by serial number",
@@ -79,10 +79,17 @@
         "operationId" : "messagesBySerialNumber",
         "produces" : [ "application/json" ],
         "parameters" : [ {
+          "name" : "serial_number",
+          "in": "path",
+          "description" : "Egg serial number, typically starts with egg0080",
+          "required" : true,
+          "type" : "string"
+        },
+        {
           "name" : "Authorization",
           "in" : "header",
           "description" : "should be a string of the form \"Bearer your-jwt-here\"",
-          "required" : false,
+          "required" : true,
           "type" : "string"
         }, {
           "name" : "start-date",
@@ -137,7 +144,7 @@
         }
       }
     },
-    "/v1/messages/topic/:topic" : {
+    "/api/v1/messages/topic/{topic}" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "gets messages MQTT topic",
@@ -145,10 +152,17 @@
         "operationId" : "messagesByTopic",
         "produces" : [ "application/json" ],
         "parameters" : [ {
+          "name" : "topic",
+          "in": "path",
+          "description" : "an mqtt topic string, typically starts with /orgs/wd/aqe/",
+          "required" : true,
+          "type" : "string"
+        },
+        {
           "name" : "Authorization",
           "in" : "header",
           "description" : "should be a string of the form \"Bearer your-jwt-here\"",
-          "required" : false,
+          "required" : true,
           "type" : "string"
         }, {
           "name" : "start-date",

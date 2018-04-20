@@ -23,11 +23,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
  
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log(req);
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
