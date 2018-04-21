@@ -45,7 +45,7 @@
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "gets an Egg's most recently reported data",
-        "description" : "Gets an object representing the most recent message sent to each topic by a specific Egg. The specific keys of the returned object will depend on the type of Egg and what it reports. These keys are taken directly from MQTT topic string using the part after 'aqe/' and before '/serial-number'. The objects attached to each of these keys are the most recent payload reported by the Egg on that topic, augmented with a 'date' field which is a ISO-8601 formatted timestmap associated with that particular message.\n",
+        "description" : "Gets an object representing the most recent message sent to each topic by a specific Egg. The specific keys of the returned object will depend on the type of Egg and what it reports. These keys are taken directly from MQTT topic string using the part after 'aqe/' and before '/serial-number'. The objects attached to each of these keys are the most recent payload reported by the Egg on that topic, augmented with a 'date' field which is a ISO-8601 formatted timestmap associated with that particular message.  Also optionally accepts a comma separated list of serial numbers, in which case the result is an array of objects instead of a singular object.\n",
         "operationId" : "mostRecentMessagesBySerialNumber",
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -82,7 +82,7 @@
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "gets messages by serial number",
-        "description" : "By passing in the appropriate options, you can get back messages published by a specific Egg over a period of time (required start-date + end-date, or start-date + dur, or end-date + dur).\n",
+        "description" : "By passing in the appropriate options, you can get back messages published by a specific Egg over a period of time (required start-date + end-date, or start-date + dur, or end-date + dur). Also optionally accepts a comma separated list of serial numbers.\n",
         "operationId" : "messagesBySerialNumber",
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -251,8 +251,9 @@
     },
     "RecentMessages": {
       "type" : "object",
-      "required" : [],
+      "required" : ["serial_number"],
       "properties" : {
+        "serial_number": "eggxyz",
         "some-sensor" : {
           "type" : "object",
           "example" : {
