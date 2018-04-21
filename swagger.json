@@ -229,7 +229,7 @@
         "tags" : [ "developers" ],
         "summary" : "gets messages from all eggs near a location",
         "description" : "By passing in the appropriate options, you can get back messages from _any_ Egg published during a period of time (required start-date + end-date, or start-date + dur, or end-date + dur) and within some distance of a coordinate.\n",
-        "operationId" : "messagesByTopic",
+        "operationId" : "messagesByLocation",
         "produces" : [ "application/json" ],
         "parameters" : [
         {
@@ -277,7 +277,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "messages from target topic matching temporal and spatial filter criteria",
+            "description" : "messages from any Egg matching temporal and spatial filter criteria",
             "schema" : {
               "type" : "array",
               "items" : {
