@@ -231,13 +231,7 @@
         "description" : "By passing in the appropriate options, you can get back messages from _any_ Egg published during a period of time (required start-date + end-date, or start-date + dur, or end-date + dur) and within some distance of a coordinate.\n",
         "operationId" : "messagesByTopic",
         "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "topic",
-          "in": "path",
-          "description" : "an mqtt topic string, typically starts with /orgs/wd/aqe/",
-          "required" : true,
-          "type" : "string"
-        },
+        "parameters" : [
         {
           "name" : "Authorization",
           "in" : "header",
