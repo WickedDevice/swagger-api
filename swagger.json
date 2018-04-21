@@ -257,6 +257,10 @@
           "type": "string",
           "example": "eggxyz"
         },
+        "last_report": {
+          "type": "string",
+          "example": "2018-04-02T20:14:22-05:00"
+        },
         "some-sensor" : {
           "type" : "object",
           "example" : {
