@@ -59,7 +59,7 @@
           "name" : "Authorization",
           "in" : "header",
           "description" : "should be a string of the form \"Bearer your-jwt-here\"",
-          "required" : false,
+          "required" : true,
           "type" : "string"
         } ],
         "responses" : {
