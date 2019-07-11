@@ -117,6 +117,18 @@
           "required" : false,
           "type" : "string"
         }, {
+          "name": "reduced",
+          "in": "query",
+          "description": "if provided and set to 1, reduces messages to canonical / ongtological {time, value, units} objects",
+          "type": "number",
+          "required": false
+        }, {
+          "name": "grouped",
+          "in": "query",
+          "description": "if provided and set to 1, groups messages by sensor type rather than in a flat heterogeneous array",
+          "type": "number",
+          "required": false
+        }, {
           "name" : "lat",
           "in" : "query",
           "description" : "Decimal value of latitude for proximity filter (in degrees)",
