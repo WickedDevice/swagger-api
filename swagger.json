@@ -14,7 +14,7 @@
   },
   "schemes" : [ "https" ],
   "paths" : {
-    "/api/v1/login" : {
+    "/api/v2/login" : {
       "post" : {
         "tags" : [ "developers" ],
         "summary" : "logs in to get JWT token",
@@ -41,7 +41,7 @@
         }
       }
     },
-    "/api/v1/most-recent/messages/device/{serial_number}" : {
+    "/api/v2/most-recent/messages/device/{serial_number}" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "gets an Egg's most recently reported data",
@@ -78,7 +78,7 @@
         }
       }
     },
-    "/api/v1/messages/device/{serial_number}" : {
+    "/api/v2/messages/device/{serial_number}" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "gets messages by serial number",
@@ -151,7 +151,7 @@
         }
       }
     },
-    "/api/v1/messages/topic/{topic}" : {
+    "/api/v2/messages/topic/{topic}" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "gets messages by MQTT topic",
