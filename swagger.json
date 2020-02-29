@@ -1,7 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "Get messages from a specific Egg or topic over a period of time, optionally filtered by location. https://airqualityegg.wickeddevice.com/api. Authentication using JWT tokens, include header Authorization Bearer your-jwt-token-here",
+    "description" : "Get messages from a specific Egg or topic over a period of time, optionally filtered by location. https://airqualityegg.wickeddevice.com/api. Authentication using JWT tokens, include header Authorization Bearer your-jwt-token-here. An alternative is to provide an API Key in the 'apiKey' query string parameter, which you can obtain by logging into the Air Quality Egg Web Portal at https://airqualityegg.com/portal, clicking your email address in the top-right, then Account Settings, where your API key is displayed at the bottom (where it can also be changed). API Keys are 31 characters in length and consist of 4 groups of 7 characters separated by dashes (e.g. XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX). Proxying requests through your own server and using JWT is a more secure method of accessing the API.",
     "version" : "1.0.0",
     "title" : "Air Quality Egg Messages API",
     "contact" : {
@@ -59,16 +59,30 @@
           "name" : "Authorization",
           "in" : "header",
           "description" : "should be a string of the form \"Bearer your-jwt-here\"",
-          "required" : true,
+          "required" : false,
           "type" : "string"
+        },
+        {
+          "name": "apiKey",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "description" : "4 groups of 7 characters separated by dashes (e.g. XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX) - 31 total characters in length, all capital letters and numbers"
         } ],
         "responses" : {
           "200" : {
             "description" : "Most recent record messages on each topic from target Egg",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/RecentMessages"
+            "content": {
+              "application/json": {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/RecentMessages"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema" : { "type": "string" }
               }
             }
           },
@@ -96,9 +110,24 @@
           "name" : "Authorization",
           "in" : "header",
           "description" : "should be a string of the form \"Bearer your-jwt-here\"",
-          "required" : true,
+          "required" : false,
           "type" : "string"
-        }, {
+        }, 
+        {
+          "name": "apiKey",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "description" : "4 groups of 7 characters separated by dashes (e.g. XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX) - 31 total characters in length, all capital letters and numbers"
+        },
+        {
+          "name": "format",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "description" : "set to csv returns data in a comma separated file format. Anything else (including not provided) results in data returned in JSON format, respecting the reduced and grouped parameters below"
+        },
+        {
           "name" : "start-date",
           "in" : "query",
           "description" : "ISO-8601 date string marking the beginning of the requested time period.",
@@ -181,9 +210,17 @@
           "name" : "Authorization",
           "in" : "header",
           "description" : "should be a string of the form \"Bearer your-jwt-here\"",
-          "required" : true,
+          "required" : false,
           "type" : "string"
-        }, {
+        }, 
+        {
+          "name": "apiKey",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "description" : "4 groups of 7 characters separated by dashes (e.g. XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX) - 31 total characters in length, all capital letters and numbers"
+        },
+        {
           "name" : "start-date",
           "in" : "query",
           "description" : "ISO-8601 date string marking the beginning of the requested time period.",
@@ -295,7 +332,7 @@
     },
     "User" : {
       "type" : "object",
-      "required" : [ "jwt" ],
+      "required" : [ ],
       "properties" : {
         "jwt" : {
           "type" : "string",
