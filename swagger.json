@@ -128,6 +128,13 @@
           "description" : "set to csv returns data in a comma separated file format. Anything else (including not provided) results in data returned in JSON format, respecting the reduced and grouped parameters below"
         },
         {
+          "name": "columns",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "description" : "when using format=csv, this can be columns can be optionally be supplied as a comma separated list of column headings (without units) corresponding to sensor names (e.g. co, no2, so2, o3, pm10p0, pm2p5, pm1p0, co2, voc, temperature, humidity, pressure, and corresponding names with _aqi as a suffix gives aqi calculated based on just that sensor) and the csv returned will have time, serial_number, and the headings you requet in order."
+        },
+        {
           "name" : "start-date",
           "in" : "query",
           "description" : "ISO-8601 date string marking the beginning of the requested time period.",
