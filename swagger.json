@@ -112,7 +112,14 @@
           "description" : "should be a string of the form \"Bearer your-jwt-here\"",
           "required" : false,
           "type" : "string"
-        }, 
+        },
+        {
+          "name" : "Content-Disposition",
+          "in" : "header",
+          "description" : "should be a string like one of theses: \"inline\" will display the response; \"attachment\" (default) will download the data as a csv file named for the provided Serial Number; \"attachment; filename=\"filename.csv\"\" will download the data as a csv file named \"filename.csv\"",
+          "required" : false,
+          "type" : "string"
+        },  
         {
           "name": "apiKey",
           "in": "query",
