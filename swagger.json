@@ -159,7 +159,15 @@
           "description" : "ISO-8601 duration string to be used in conjunction with _either_ start-date or end-date, not both",
           "required" : false,
           "type" : "string"
-        }, {
+        },
+        {
+          "name" : "resolution",
+          "in" : "query",
+          "description" : "ISO-8601 duration string (e.g. PT1H for 1-hour, PT30M for 30-minutes) which, if provided, calculated centered averages at the specified resolution",
+          "required" : false,
+          "type" : "string"
+        }, 
+        {
           "name": "reduced",
           "in": "query",
           "description": "if provided and set to 1, reduces messages to canonical / ongtological {time, value, units} objects",
