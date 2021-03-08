@@ -51,7 +51,7 @@
         "parameters" : [ {
           "name" : "serial_number",
           "in": "path",
-          "description" : "Egg serial number, typically starts with egg0080",
+          "description" : "Egg serial number, typically starts with egg0080, or for Zynect sensors the 5-letter short code on the back of the unit",
           "required" : true,
           "type" : "string"
         },
@@ -102,7 +102,7 @@
         "parameters" : [ {
           "name" : "serial_number",
           "in": "path",
-          "description" : "Egg serial number, typically starts with egg0080",
+          "description" : "Egg serial number, typically starts with egg0080, or for Zynect sensors the 5-letter short code on the back of the unit",
           "required" : true,
           "type" : "string"
         },
